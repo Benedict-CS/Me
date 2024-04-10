@@ -1,3 +1,28 @@
+.about-header {
+    text-align: center;
+    margin-bottom: 40px;
+    }
+    .about-header img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    }
+    .about-section {
+    margin-bottom: 30px;
+    }
+    .about-section h2 {
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    }
+    .up {
+    margin-top: -50px;
+    }
+
+    /* 以上是我自己加的 */
+
 details,img,main{
     display:block
 }
@@ -1155,7 +1180,7 @@ pre .javascript .function,pre .keyword{
     line-height:inherit
 }
 .posts-collapse .post-title2{
-    margin-left:170px;
+    margin-left:180px;
     font-size:16px;
     font-weight:400;
     line-height:inherit
