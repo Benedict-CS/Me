@@ -1213,46 +1213,47 @@ a:hover {
     line-height:inherit
 }
 
-.image2 {
-    opacity: 1;
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: .1s ease;
-    backface-visibility: hidden;
+
+
+
+.hero-image {
+    height: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
   }
   
-  .middle {
-    transition: .1s ease;
-    opacity: 0;
+  .hero-text {
+    text-align: center;
     position: absolute;
-    top: 50%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+
+ 
+
+  }
+  
+  .hero-text button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    color: black;
+    background-color: #ddd;
     text-align: center;
+    cursor: pointer;
   }
   
-  .image2:hover .image2 {
-    opacity: 0.3;
-  }
-  
-  .image2:hover .middle {
-    opacity: 1;
-  }
-  
-  .text {
-    background-color: #04AA6D;
+  .hero-text button:hover {
+    background-color: #555;
     color: white;
-    font-size: 12px;
-    padding: 6px 12px;
   }
-  
+
+
 
 .small{
-
     font-size:12px;
-
 }
 
 
