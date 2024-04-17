@@ -1167,6 +1167,10 @@ pre .javascript .function,pre .keyword{
     left:20px;
     top:5px
 }
+
+
+
+
 .posts-collapse .post-title{
     margin-left:60px;
     font-size:16px;
@@ -1180,7 +1184,7 @@ pre .javascript .function,pre .keyword{
     line-height:inherit
 }
 .posts-collapse .post-title2{
-    margin-left:180px;
+    margin-left:140px;
     font-size:16px;
     font-weight:400;
     line-height:inherit
@@ -1197,6 +1201,60 @@ pre .javascript .function,pre .keyword{
     font-weight:400;
     line-height:inherit
 }
+
+a:hover {
+    background-color: yellow;
+  }
+
+.posts-collapse .post-title5{
+    margin-left:25px;
+    font-size:16px;
+    font-weight:400;
+    line-height:inherit
+}
+
+.image2 {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .1s ease;
+    backface-visibility: hidden;
+  }
+  
+  .middle {
+    transition: .1s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .image2:hover .image2 {
+    opacity: 0.3;
+  }
+  
+  .image2:hover .middle {
+    opacity: 1;
+  }
+  
+  .text {
+    background-color: #04AA6D;
+    color: white;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  
+
+.small{
+
+    font-size:12px;
+
+}
+
 
 .posts-collapse .post-title::after{
     margin-left:3px;
