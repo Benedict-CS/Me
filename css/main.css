@@ -21,6 +21,56 @@
     margin-top: -50px;
     }
 
+    .sidebar-inner,
+    .use-motion .brand,
+    .use-motion .collection-title,
+    .use-motion .comments,
+    .use-motion .menu-item,
+    .use-motion .motion-element,
+    .use-motion .pagination,
+    .use-motion .post-block,
+    .use-motion .post-body,
+    .use-motion .post-header {
+        opacity: initial
+    }
+
+    .use-motion .logo,
+    .use-motion .site-subtitle,
+    .use-motion .site-title {
+        opacity: initial;
+        top: initial
+    }
+
+    .use-motion .logo-line-before i {
+        left: initial
+    }
+
+    .use-motion .logo-line-after i {
+        right: initial
+    }
+
+    
+    .flex-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: flex-start;
+     }
+
+     .item {
+        width: 29%;
+        margin: 5px;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+     }
+
+     @media (max-width: 768px) {
+        .item {
+           width: 98%;
+        }
+     }
     /* 以上是我自己加的 */
 
 details,img,main{
