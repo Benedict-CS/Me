@@ -25,6 +25,16 @@
         line-height:inherit
     }
 
+    .white_bg 
+{
+    border: 2px solid #f4f4f4; /* Border properties */
+
+border-radius: 3px; /* Set the border radius to create rounded corners */
+
+    background-color: #f4f4f4;
+    padding: 2px; /*add this if you want a bit of space around the text*/
+}
+
     .sidebar-inner,
     .use-motion .brand,
     .use-motion .collection-title,
