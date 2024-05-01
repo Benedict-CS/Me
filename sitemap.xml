@@ -7,6 +7,10 @@
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 
+
+
+
+
 <url>
   <loc>https://benedict-cs.github.io/Me/</loc>
   <lastmod>2024-04-29T08:08:22+00:00</lastmod>
@@ -64,6 +68,11 @@
 </url>
 <url>
   <loc>https://benedict-cs.github.io/Me/archives/2022/bestdesign.html</loc>
+  <lastmod>2024-04-29T08:08:22+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://benedict-cs.github.io/Me/archives/2022/champion.html</loc>
   <lastmod>2024-04-29T08:08:22+00:00</lastmod>
   <priority>0.64</priority>
 </url>

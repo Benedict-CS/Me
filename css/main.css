@@ -80,6 +80,16 @@ border-radius: 3px; /* Set the border radius to create rounded corners */
         padding: 10px;
      }
 
+     .item2 {
+        width: 45%;
+        height: 40%;
+        height: auto;
+        margin: 5px;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+     }
+
      @media (max-width: 768px) {
         .item {
            width: 98%;
