@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html class="theme-next mist use-motion">
+
+<head>
+    <title>Benedict | Tech Blog</title>
+    <link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/apple-touch-icon-next.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32x32-next.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/favicon-32x32-next.ico">
+    <link rel="shortcut icon" href="../../images/favicon-32x32-next.ico" type="image/x-icon" />
+    <link rel="mask-icon" href="../../images/logo.svg" color="#222">
+    <script src="../../js/script.js"></script>
+    <meta name="description"
+        content="This article will guide you how to Apply different scheduling policies on created threads">
+    <meta name="keywords"
+        content="張永義, Benedict Tiong, 張永義 Benedict Tiong, 張永義 Tiong Ing Ngie, 張永義 Ing Ngie, Tiong Ing Ngie, 張永義 Benedict, Benedict Tiong Ing Ngie, 永義, Benedict, 永義張, Tiong Benedict, Benedict-CS, benedict, benedict tiong">
+    <meta name="robots" content="index, follow">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2">
+    <!-- <meta property="og:title" content="Tags - Benedict | Tech Blog"> -->
+    <meta property="og:description"
+        content="This article will guide you how to Apply different scheduling policies on created threads">
+    <meta property="og:image" content="../../images/me.jpg">
+    <meta property="og:url"
+        content="https://benedict-cs.github.io/Me/archives/2023/%E5%A4%A7%E5%AD%B8%E7%95%A2%E6%A5%AD%E7%84%B6%E5%BE%8C%E5%91%A2.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Benedict | Tech Blog">
+    <!-- <meta name="twitter:title" content="Tags - Benedict | Tech Blog"> -->
+    <meta name="twitter:title" content="Tags - 張永義">
+    <meta name="twitter:description"
+        content="This article will guide you how to Apply different scheduling policies on created threads">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image:src" content="../../images/me.jpg">
+    <meta name="twitter:domain" content="benedict-cs.github.io/Me">
+    <meta name='robots' content='max-image-preview:large' />
+    <meta itemprop="name" content="張永義">
+    <meta property="og:title" content="張永義">
+</head>
+
+<body>
+    <div class="container sidebar-position-left page-post-detail">
+        <header id="header" class="header">
+            <div class="header-inner">
+                <div class="site-brand-wrapper">
+                    <!-- 左上角的logo -->
+                    <div class="site-meta">
+                        <div class="custom-logo-site-title">
+                            <a href="./index.html" class="brand" rel="start">
+                                <span class="logo-line-before"><i></i></span>
+                                <span class="site-title">Benedict's world</span>
+                                <span class="logo-line-after"><i></i></span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 右上角RWD才會出來的漢堡選單 -->
+                    <div class="site-nav-toggle">
+                        <button aria-label="Toggle navigation bar">
+                            <span class="btn-bar"></span>
+                            <span class="btn-bar"></span>
+                            <span class="btn-bar"></span>
+                        </button>
+                    </div>
+                </div>
+                <!-- 中間的 navbar -->
+                <nav class="site-nav" class="navbar">
+                    <ul id="menu" class="menu">
+                        <li class="menu-item menu-item-home ">
+                            <a href="../../index.html" rel="section">
+                                <i class="menu-item-icon fa fa-fw fa-home"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li class="menu-item menu-item-archives menu-item-active">
+                            <a href="../../tags/index.html" rel="section">
+                                <i class="menu-item-icon fa fa-fw fa-tags"></i>
+                                Tags
+                            </a>
+                        </li>
+                        <li class="menu-item menu-item-archives">
+                            <a href="../../archives/index.html" rel="section">
+                                <i class="menu-item-icon fa fa-fw fa-archive"></i>
+                                Archives
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main id="main" class="main">
+            <div class="main-inner">
+                <div class="content-wrap">
+                    <div id="content" class="content">
+                        <div id="posts" class="posts-expand">
+                            <article class="post post-type-normal">
+                                <div class="post-block">
+                                    <header class="post-header">
+                                        <h1 class="post-title">
+                                            Apply different scheduling policies on created threads
+                                        </h1>
+
+
+                                        <div class="post-meta">
+                                            <span class="post-time">
+                                                <span class="post-meta-item-icon">
+                                                    <i class="fa fa-calendar-o"></i>
+                                                    Posted on <time>2024-01-23</time>
+                                                </span>
+                                            </span>
+                                            <span class="post-meta-divider">|</span>
+                                            <span class="post-time">
+                                                <span class="post-meta-item-icon">
+                                                    <i class="fa fa-tag"></i>
+                                                    <a href="../../tags/OS/index.html">OS</a>
+                                                </span>
+                                            </span>
+                                            <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                                                <i class="fa fa-eye"></i>Views:
+                                                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+                                            </span>
+                                        </div>
+                                    </header>
+
+
+                                    <div class="post-body">
+                                        <h3 id="Outline"><a href="#Outline" class="headerlink"
+                                                title="Outline"></a>Outline
+                                        </h3>
+
+
+                                        <ul>
+                                            <li>
+                                                <h4>Different scheduling policies on created threads</h4>
+                                                <ul>
+                                                    <li>Linux Scheduling Policy</li>
+                                                    <ul>
+                                                        <li><span class="white_bg">SCHED_FIFO</span></li>
+                                                    </ul>
+                                            </li>
+                                            <li>Requirements
+                                                <ul>
+                                                    <li>Main thread </li>
+                                                    <li>Worker Thread </li>
+                                                </ul>
+
+                                            </li>
+
+                                        </ul>
+                                        </li>
+
+                                        </ul>
+
+                                        <div class="post-body">
+                                            <h3 id="Part 1"><a href="#Part 1" class="headerlink" title="Part 1"></a> How
+                                                to implemente the program in detail
+                                            </h3>
+                                            <p><b>Step 0: Create new program</b></p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+                                                            <pre><span class="line">vim sched_demo_312551002.c</span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </figure>
+                                            <p><b>
+                                                    Step 1: Define and include related library
+                                                </b>
+                                            </p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+                                                            <pre>
+#define _GNU_SOURCE
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;sched.h&gt;
+#include &lt;unistd.h&gt;
+</pre>
+
+
+                                                    </tr>
+                                                </table>
+                                            </figure>
+                                            <li>I enabled the GNU extensions because I'll using functions like <span
+                                                    class="white_bg"> CPU_ZERO</span>, <span
+                                                    class="white_bg">CPU_SET</span>, and <span
+                                                    class="white_bg">pthread_setaffinity_np</span>, if not enabled the
+                                                GNU extensions, when compile will occur errors and warnings.</li>
+
+                                                <br>
+
+                                            <p><b>Step 2: Define a struct for collecting required thread information</b>
+                                            </p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+                                                            <pre>
+typedef struct {
+    pthread_t thread_id;
+    int thread_num;
+    int sched_policy;
+    int sched_priority;
+    pthread_barrier_t *barrier;
+    double time_wait;
+} thread_info_t;
+</pre>
+
+                                                    </tr>
+                                                </table>
+                                            </figure>
+                                            <p><b>Step 3: Implement the Parse program arguments</b></p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+<pre>
+testcases:
+
+-n 1 -t 0.5 -s NORMAL -p -1
+-n 2 -t 0.5 -s FIFO,FIFO -p 10,20
+-n 3 -t 1.0 -s NORMAL,FIFO,FIFO -p -1,10,30
+</pre>
+
+                                                    </tr>
+                                                </table>
+                                            </figure>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+<pre>
+void parse_args(int argc, char *argv[], int *num_threads, double *time_wait, 
+                char ***policies_array, char ***priorities_array) 
+{
+    char *policies_str = NULL;
+    char *priorities_str = NULL;
+    
+    /* Parse program arguments */
+    int opt;
+    while ((opt = getopt(argc, argv, "n:t:s:p:")) != -1) {
+        switch (opt) {
+            case 'n':
+                *num_threads = atoi(optarg);
+                break;
+            case 't':
+                *time_wait = atof(optarg);
+                break;
+            case 's':
+                policies_str = optarg;
+                break;
+            case 'p':
+                priorities_str = optarg;
+                break;
+        }
+    }
+
+    /* Split policies and priotities argument */
+    *policies_array = malloc(*num_threads * sizeof(char *));
+    *priorities_array = malloc(*num_threads * sizeof(char *));
+
+    char *rest_policy = policies_str;
+    char *rest_priority = priorities_str;
+
+    for (int i = 0; i < *num_threads; i++) {
+        if (i == 0) {
+            (*policies_array)[i] = strtok_r(policies_str, ",", &rest_policy);
+            (*priorities_array)[i] = strtok_r(priorities_str, ",", &rest_priority);
+        } 
+        else {
+            (*policies_array)[i] = strtok_r(NULL, ",", &rest_policy);
+            (*priorities_array)[i] = strtok_r(NULL, ",", &rest_priority);
+        }
+    }
+}
+</pre>
+
+                                                    </tr>
+                                                </table>
+                                            </figure>
+<li>Command-line arguments are parsed using the <span class="white_bg"> getopt</span> function. The arguments include the number of threads <span class="white_bg"> -n </span>, time to wait <span class="white_bg"> -t</span>, scheduling policies <span class="white_bg"> -s</span>, and priorities <span class="white_bg"> -p</span>. The values are stored in appropriate variables for later use.</li>
+<li>Special attention is given to the <span class="white_bg"> -s </span> and <span class="white_bg"> -p </span>, which can have multiple values separated by <span class="white_bg"> ","</span>. These values are split and stored in arrays for individual thread configurations.</li>
+                                        <br>
+
+                                            <p><b>Step 4: Set CPU affinity and thread attribute</b></p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+<pre>
+void set_thread_attributes(pthread_attr_t *attr, int sched_policy, int sched_priority) {
+
+    /* Set CPU affinity */
+    cpu_set_t cpuset;
+    pthread_attr_init(attr);
+    CPU_ZERO(&cpuset);
+    CPU_SET(0, &cpuset);
+    pthread_attr_setaffinity_np(attr, sizeof(cpu_set_t), &cpuset);
+
+    /* Set FIFO priority and attribute */
+    if (sched_policy == SCHED_FIFO) {
+        struct sched_param param;
+        param.sched_priority = sched_priority;
+        pthread_attr_setschedpolicy(attr, SCHED_FIFO);
+        pthread_attr_setschedparam(attr, &param);
+        pthread_attr_setinheritsched(attr, PTHREAD_EXPLICIT_SCHED);
+    }
+}
+</pre>
+
+
+                                                    </tr>
+                                                </table>
+                                            </figure>
+
+                                           <li><span class="white_bg"> CPU_ZERO</span> and <span class="white_bg"> CPU_SET</span> are used to bind threads to a specific CPU (CPU 0 in this case), ensuring that they run on the designated processor.</li>
+                                           <li>If the scheduling policy is <span class="white_bg"> SCHED_FIFO</span>, additional attributes such as scheduling policy and priority are set. <span class="white_bg"> SCHED_FIFO</span> is a real-time scheduling policy where a thread runs until it either finishes or is preempted by a higher priority thread. If scheduling policy is <span class="white_bg"> NORMAL</span> will skip this part. </li>
+ <br>
+                                           <p><b>Step 5: Implement the Worker Thread</b></p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+<pre>
+void *thread_func(void *arg) {
+    thread_info_t *tinfo = (thread_info_t *)arg;
+    struct timespec start, current;
+    
+    /* Wait until all threads are ready */
+    pthread_barrier_wait(tinfo->barrier);
+
+    /* Do the task */
+    for (int i = 0; i < 3; i++) {
+        printf("Thread %d is running\n", tinfo->thread_num);
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        double elapsed = 0;
+
+        /* Busy for <time_wait> seconds */
+        while (elapsed < tinfo->time_wait) {
+            clock_gettime(CLOCK_MONOTONIC, &current);
+            elapsed = current.tv_sec - start.tv_sec + 
+                     (current.tv_nsec - start.tv_nsec) / 1000000000.0;
+        }
+    }
+
+    /* Exit the function  */
+    return NULL;
+}
+</pre>
+
+                                                    </tr>
+                                                </table>
+                                            </figure>
+
+                                        <li>The worker thread's function is defined here. Each thread waits at the barrier until all threads are ready to start simultaneously. This ensures synchronized start across all threads. </li>
+                                            <li>    Inside the loop, each thread performs its task for a specified duration <span class="white_bg"> time_wait</span>. This is achieved using a busy-wait loop, calculating elapsed time with <span class="white_bg"> clock_gettime</span>. </li>
+                                            <br>
+
+                                            <p><b>Step 6: Implement the Main Thread</b></p>
+                                                                                       <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+<pre>
+int main(int argc, char *argv[]) {
+
+    /* Parse program arguments */
+    int num_threads;
+    double time_wait;
+    char **policies;
+    char **priorities;
+
+    parse_args(argc, argv, &num_threads, &time_wait, &policies, &priorities);
+
+    /* Initialize a barrier for synchronizing the start of the worker threads */
+    pthread_barrier_t barrier;
+    pthread_barrier_init(&barrier, NULL, num_threads);
+
+    /* Allocate memory for storing thread information */
+    thread_info_t *tinfo = calloc(num_threads, sizeof(*tinfo));
+
+    /* Create <num_threads> worker threads */
+    for (int i = 0; i < num_threads; i++) {
+        tinfo[i].thread_num = i;
+        tinfo[i].time_wait = time_wait;
+        tinfo[i].barrier = &barrier;
+        
+        /* Set thread scheduling policy and priority */
+        if (strcmp(policies[i], "FIFO") == 0)
+            tinfo[i].sched_policy = SCHED_FIFO;
+        else
+            tinfo[i].sched_policy = SCHED_OTHER;
+        
+        tinfo[i].sched_priority = atoi(priorities[i]);
+
+        /* Set attributes to each thread, including CPU affinity and scheduling */
+        pthread_attr_t attr;
+        set_thread_attributes(&attr, tinfo[i].sched_policy, tinfo[i].sched_priority);
+        
+        /* Start the thread */
+        pthread_create(&tinfo[i].thread_id, &attr, thread_func, &tinfo[i]);
+        pthread_attr_destroy(&attr);
+    }
+
+    /* Wait for all threads to finish */
+    for (int i = 0; i < num_threads; i++) {
+        pthread_join(tinfo[i].thread_id, NULL);
+    }
+
+    /* Clean up */
+    pthread_barrier_destroy(&barrier);
+    free(tinfo);
+    free(policies);
+    free(priorities);
+
+    return 0;
+}
+</pre>
+
+
+                                                    </tr>
+                                                </table>
+                                            </figure>
+
+                                            <li>The main function initializes the threading environment and starts the worker threads.</li>
+<li>It begins by parsing command-line arguments to determine the number of threads, their wait times, scheduling policies, and priorities.</li>
+<li>A barrier is initialized to synchronize the start of all worker threads.</li>
+<li>Threads are created in a loop. Each thread is given a unique number, its wait time, a reference to the barrier, and its scheduling policy and priority.</li>
+<li>Thread attributes are set according to the specified scheduling policy and CPU affinity.</li>
+<li>Threads are then started with <span class="white_bg"> pthread_create</span>.</li>
+<li>Finally, the main thread waits for all worker threads to complete using <span class="white_bg"> pthread_join</span> and performs necessary cleanup operations like destroying the barrier and freeing allocated memory.</li>
+<br>
+
+                                            <p><b>Complete sched_demo_312551002.c program can be downlaod at:</b></p>
+                                                
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+                                                            <pre><span class="line">wget https://raw.githubusercontent.com/Benedict-CS/Operating-System-NYCU-2023/main/HW2/sched_demo_312551002.c</span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </figure>
+                                         
+                                            <p><b>Compile implemented program</b></p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+                                                            <pre><span class="line">gcc -o sched_demo_312551002 sched_demo_312551002.c</span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </figure>
+
+
+                                            <p><b>Downlaod sched_test.sh</b></p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+                                                            <pre><span class="line">wget https://raw.githubusercontent.com/Benedict-CS/Operating-System-NYCU-2023/main/HW2/sched_test.sh</span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </figure>
+
+
+                                            
+
+                                            <p><b>Test the program</b></p>
+                                            <figure class="highlight plain">
+                                                <table>
+                                                    <tr>
+                                                        <td class="code">
+                                                            <pre><span class="line">sudo ./sched_test.sh ./sched_demo ./sched_demo_312551002</span><br></pre>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </figure>
+
+
+                                            <p><b>Screenshot of test result:</b></p>
+                                            <div>
+                                                <img alt="張永義 競賽圖片" src="./images/OS_2/OS_1.png" />
+                                            </div>
+
+
+
+
+                                            <h3 id="Part 2"><a href="#Part 2" class="headerlink" title="Part 2"></a> Results of ./sched_demo -n 3 -t 1.0 -s NORMAL,FIFO,FIFO -p -1,10,30
+                                            </h3>
+                                            <div>
+                                                <img alt="張永義 競賽圖片" src="./images/OS_2/OS_2.png" />
+                                            </div>
+                                            <li>CFS and NORMAL Policy: Thread 0 and Thread 2, which are both scheduled under the NORMAL policy, are managed by the CFS. This ensures they receive fair CPU time slices. Despite their lower priority compared to the FIFO threads, CFS allocates them CPU time in a manner that prevents starvation and ensures fair allocation. This is why these threads are scheduled intermittently even amidst the higher priority FIFO threads.</li>
+                                            <li>FIFO Policy and Preemption: Threads 1 and 3, scheduled under the FIFO policy, are expected to run based on their priority levels. Thread 3, with the highest priority (30), should theoretically preempt other threads and run to completion first. However, the interleaved scheduling of Thread 0 and Thread 2 indicates that CFS intervention allows these NORMAL policy threads to receive CPU time, thus not strictly adhering to FIFO priorities.</li>
+
+                                         
+
+                                            <h3 id="Part 3"><a href="#Part 3" class="headerlink" title="Part 3"></a> Results of ./sched_demo -n 4 -t 0.5 -s NORMAL,FIFO,NORMAL,FIFO -p -1,10,-1,30
+                                            </h3>
+                                            <div>
+                                                <img alt="張永義 競賽圖片" src="./images/OS_2/OS_3.png" />
+                                            </div>
+                                            <li>CFS and NORMAL Policy: Although Thread 0 and Thread 2 have a NORMAL scheduling policy, the CFS ensures they both receive a fair portion of CPU time. CFS is designed to equitably distribute CPU time slices and does not allow real-time processes to completely overshadow regular ones. This design accounts for why Threads 0 and 2 are scheduled intermittently, even though there are FIFO threads with higher priorities running.</li>
+                                            <li>FIFO Policy and Preemption: For FIFO threads such as Thread 1 and Thread 3, the scheduling is based on their priority levels. Thread 3, with the highest priority (30), should, in a perfect FIFO system, run to completion before Thread 1, which has a lower priority (10), begins. However, the interleaving of Thread 0 and Thread 2 suggests that CFS is providing time slices to NORMAL policy threads, thereby not strictly adhering to FIFO priority rules.</li>
+
+                                           
+                                            <h3 id="Part 4"><a href="#Part 4" class="headerlink" title="Part 4"></a>Describe how to implement n-second-busy-waiting?
+                                            </h3>
+
+                                            <figure class="highlight plain">
+                                                <div class="table-container">
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="code">
+                                                                  
+<pre>
+void *thread_func(void *arg) {
+    thread_info_t *tinfo = (thread_info_t *)arg;
+    struct timespec start, current;
+    
+    /* Wait until all threads are ready */
+    pthread_barrier_wait(tinfo->barrier);
+
+    /* Do the task */
+    for (int i = 0; i < 3; i++) {
+        printf("Thread %d is running\n", tinfo->thread_num);
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        double elapsed = 0;
+
+        /* Busy for <time_wait> seconds */
+        while (elapsed < tinfo->time_wait) {
+            clock_gettime(CLOCK_MONOTONIC, &current);
+            elapsed = current.tv_sec - start.tv_sec + 
+                     (current.tv_nsec - start.tv_nsec) / 1000000000.0;
+        }
+    }
+
+    /* Exit the function  */
+    return NULL;
+}
+</pre>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </figure>
+
+                                         <li>Time Measurement: The <span class="white_bg"> clock_gettime</span> function with <span class="white_bg"> CLOCK_MONOTONIC</span> is used to retrieve the current time at the start of the busy-waiting loop and then repeatedly during the loop to measure the elapsed time.</li>
+                                         <li>Busy-Wait Loop: Each thread enters a while loop that continually checks whether the elapsed time since the start of the loop has exceeded the specified waiting time (time_wait).</li>
+                                         <li>Elapsed Time Calculation: Inside the loop, clock_gettime is called again to get the current time, and the elapsed time is calculated by subtracting the starting time (start) from the current time (current). The result includes both the seconds (tv_sec) and nanoseconds (tv_nsec) components.</li>
+
+                                            <div class="post-body">
+                                                <h3 id="Reference"><a href="#Reference" class="headerlink"
+                                                        title="Reference"></a>Reference
+                                                </h3>
+
+                                                <p><a href="https://hackmd.io/@Cycatz/HyhStPHHj"
+                                                        target="_blank">https://hackmd.io/@Cycatz/HyhStPHHj</a></li>
+                                                <p><a href="https://github.com/Benedict-CS/Operating-System-NYCU-2023/tree/main/HW2"
+                                                        target="_blank">https://github.com/Benedict-CS/Operating-System-NYCU-2023/tree/main/HW2</a>
+                                                </p>
+                                                <p><a href="https://man7.org/linux/man-pages/man7/sched.7.htmlv"
+                                                        target="_blank">https://man7.org/linux/man-pages/man7/sched.7.html</a></p>
+
+                                                <footer class="post-footer">
+                                                    <div class="post-tags">
+                                                        <a href="../../tags/OS/index.html" rel="tag">#
+                                                            OS</a>
+                                                        <a href="../../tags/University/index.html" rel="tag">#
+                                                            University</a>
+                                                    </div>
+                                                    <span class="post-nav-divider"></span>
+
+                                                    <div class="post-nav">
+                                                        <div class="post-nav-next post-nav-item">
+                                                            <a href="../2024/compile_linux_kernel.html" rel="next">
+                                                                <i class="fa fa-chevron-left"></i>
+                                                                Compiling Linux Kernel
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="post-nav-prev post-nav-item">
+                                                            <a href="../2024/kernel_module.html" rel="prev">
+
+                                                                Implementation of Kernel Module
+                                                                <i class="fa fa-chevron-right"></i>
+
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+
+                                                </footer>
+                                            </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-toggle">
+                    <div class="sidebar-toggle-line-wrap">
+                        <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+                    </div>
+                </div>
+                <aside id="sidebar" class="sidebar">
+                    <div class="sidebar-inner">
+                        <ul class="sidebar-nav motion-element">
+                            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">目錄</li>
+                        </ul>
+                        <div class="post-site-overview-wrap motion-element sidebar-panel sidebar-panel-active">
+                            <div class="post-toc">
+                                <div>
+                                    <ol class="nav">
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Outline">
+                                                <span class="nav-number">1.</span>
+                                                <span class="nav-text">Outline</span></a>
+                                        </li>
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Part 1">
+                                                <span class="nav-number">2.</span>
+                                                <span class="nav-text">Part 1: How to implemente</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Part 2">
+                                                <span class="nav-number">3.</span>
+                                                <span class="nav-text">Part 2: Testcase 1</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Part 3">
+                                                <span class="nav-number">4.</span>
+                                                <span class="nav-text">Part 3: Testcase 2</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Part 4">
+                                                <span class="nav-number">5.</span>
+                                                <span class="nav-text">Part 4: Testcase 3</span>
+                                            </a>
+                                        </li>
+                                        
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Reference">
+                                                <span class="nav-number">6.</span>
+                                                <span class="nav-text">Reference</span>
+                                            </a>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+        <!-- Footer的一些内容 -->
+        <footer id="footer" class="footer">
+            <div class="footer-inner">
+                <div class="copyright">&copy;
+                    <span itemprop="copyrightYear">2024</span>
+                    <span class="author" itemprop="copyrightHolder">Benedict</span>
+                </div>
+                <div class="busuanzi-count">
+                    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user"></i>
+                    </span>
+                    <span class="site-uv" title="Total Visitors">
+                        <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+                    </span>
+                    <span class="post-meta-divider">|</span>
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    <span class="site-pv" title="Total Views">
+                        <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+                    </span>
+                </div>
+            </div>
+        </footer>
+        <!-- 回到top的箭頭 -->
+        <div class="back-to-top">
+            <i class="fa fa-arrow-up"></i>
+        </div>
+    </div>
+    <script>"[object Function]" !== Object.prototype.toString.call(window.Promise) && (window.Promise = null)</script>
+    <script src="../../lib/jquery/index.js"></script>
+    <script src="../../lib/velocity/velocity.min.js"></script>
+    <script src="../../lib/velocity/velocity.ui.min.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/motion.js"></script>
+    <script src="../../js/baidu.js"></script>
+    <script src="../../js/schemes/muse.js"></script>
+    <script src="../../js/scrollspy.js"> </script>
+    <script src="../../js/next-boot.js"></script>
+</body>
+
+</html>
