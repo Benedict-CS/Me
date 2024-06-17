@@ -55,6 +55,22 @@
     font-size:10px;
 }
 
+.white_bg3 {
+    border: 1px solid #f4f4f4;
+    /* Border properties */
+
+    border-radius: 3px;
+    /* Set the border radius to create rounded corners */
+
+    background-color: #f4f4f4;
+    padding: 2px;
+
+    margin-left: 10px;
+    /*add this if you want a bit of space around the text*/
+    font-size:12px;
+    font-weight: bold;
+}
+
 .sidebar-inner,
 .use-motion .brand,
 .use-motion .collection-title,

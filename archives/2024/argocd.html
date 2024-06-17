@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html class="theme-next mist use-motion">
+
+<head>
+    <title>Benedict | Tech Blog</title>
+    <link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/apple-touch-icon-next.png">
+    <link rel="shortcut icon" href="../../images/favico.ico" type="image/x-icon" />
+    <link rel="mask-icon" href="../../images/logo.svg" color="#222">
+    <script src="../../js/script.js"></script>
+    <meta name="description"
+        content="This article will guide you to compile the linux kernel from source and define custom system calls.">
+    <meta name="keywords"
+        content="張永義, Benedict Tiong, 張永義 Benedict Tiong, 張永義 Tiong Ing Ngie, 張永義 Ing Ngie, Tiong Ing Ngie, 張永義 Benedict, Benedict Tiong Ing Ngie, 永義, Benedict, 永義張, Tiong Benedict, Benedict-CS, benedict, benedict tiong">
+    <meta name="robots" content="index, follow">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2">
+    <!-- <meta property="og:title" content="Tags - Benedict | Tech Blog"> -->
+    <meta property="og:description"
+        content="This article will guide you to compile the linux kernel from source and define custom system calls.">
+    <meta property="og:image" content="../../images/me.jpg">
+    <meta property="og:url"
+        content="https://benedict-cs.github.io/Me/archives/2023/%E5%A4%A7%E5%AD%B8%E7%95%A2%E6%A5%AD%E7%84%B6%E5%BE%8C%E5%91%A2.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Benedict | Tech Blog">
+    <!-- <meta name="twitter:title" content="Tags - Benedict | Tech Blog"> -->
+    <meta name="twitter:title" content="Tags - 張永義">
+    <meta name="twitter:description"
+        content="This article will guide you to compile the linux kernel from source and define custom system calls.">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image:src" content="../../images/me.jpg">
+    <meta name="twitter:domain" content="benedict-cs.github.io/Me">
+    <meta name='robots' content='max-image-preview:large' />
+    <meta itemprop="name" content="張永義">
+    <meta property="og:title" content="張永義">
+</head>
+
+<body>
+    <div class="container sidebar-position-left page-post-detail">
+        <header id="header" class="header">
+            <div class="header-inner">
+                <div class="site-brand-wrapper">
+                    <!-- 左上角的logo -->
+                    <div class="site-meta">
+                        <div class="custom-logo-site-title">
+                            <a href="./index.html" class="brand" rel="start">
+                                <span class="logo-line-before"><i></i></span>
+                                <span class="site-title">Benedict's world</span>
+                                <span class="logo-line-after"><i></i></span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 右上角RWD才會出來的漢堡選單 -->
+                    <div class="site-nav-toggle">
+                        <button aria-label="Toggle navigation bar">
+                            <span class="btn-bar"></span>
+                            <span class="btn-bar"></span>
+                            <span class="btn-bar"></span>
+                        </button>
+                    </div>
+                </div>
+                <!-- 中間的 navbar -->
+                <nav class="site-nav" class="navbar">
+                    <ul id="menu" class="menu">
+                        <li class="menu-item menu-item-home ">
+                            <a href="../../index.html" rel="section">
+                                <i class="menu-item-icon fa fa-fw fa-home"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li class="menu-item menu-item-archives menu-item-active">
+                            <a href="../../tags/index.html" rel="section">
+                                <i class="menu-item-icon fa fa-fw fa-tags"></i>
+                                Tags
+                            </a>
+                        </li>
+                        <li class="menu-item menu-item-archives">
+                            <a href="../../archives/index.html" rel="section">
+                                <i class="menu-item-icon fa fa-fw fa-archive"></i>
+                                Archives
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main id="main" class="main">
+            <div class="main-inner">
+                <div class="content-wrap">
+                    <div id="content" class="content">
+                        <div id="posts" class="posts-expand">
+                            <article class="post post-type-normal">
+                                <div class="post-block">
+                                    <header class="post-header">
+                                        <h1 class="post-title">
+                                            Argocd
+                                        </h1>
+
+                                        
+                                        <div class="post-meta">
+                                            <span class="post-time">
+                                                <span class="post-meta-item-icon">
+                                                    <i class="fa fa-calendar-o"></i>
+                                                    Posted on <time>2024-01-21</time>
+                                                </span>
+                                            </span>
+                                            <span class="post-meta-divider">|</span>
+                                            <span class="post-time">
+                                                <span class="post-meta-item-icon">
+                                                    <i class="fa fa-tag"></i>
+                                                    <a href="../../tags/OS/index.html">OS</a>
+                                                </span>
+                                            </span>
+                                            <span class="post-meta-divider">|</span>
+                                            <span class="post-meta-item-icon">
+                                                <i class="fa fa-eye"></i>Views:
+                                                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+                                            </span>
+                                        </div>
+                                    </header>
+
+
+                                    <div class="post-body">
+                                        <h2 id="Outline"><a href="#Outline" class="headerlink" title="Outline"></a>Outline
+                                        </h2>
+                                     
+
+                                                <ul>
+                                                    <li><h4>Part1: Compiling Linux Kernel</h4>
+                                                        <ul>
+                                                            <li><span class="white_bg">Change kernel suffix</span></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><h4>Part2: Adding custom system calls</h4>
+                                                        <ul>
+                                                            <li><span class="white_bg">sys_hello</span></li>
+                                                            <li><span class="white_bg">sys_revstr </span></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+
+                                    <div class="post-body">
+                                        <h2 id="Part 1"><a href="#Part 1" class="headerlink" title="Part 1"></a>Part 1: Compiling
+                                            Linux Kernel & Change kernel suffix
+                                        </h2>
+                                        <p><b>Step 1: Download and Extract the Linux kernel source code</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.19.12.tar.xz</span><br></pre>
+                                                        <pre><span class="line">tar -xJf linux-5.19.12.tar.xz</span><br></pre>
+                                                        <pre><span class="line">cd linux-5.19.12</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>
+                                                Step 2: Install essential tools and libraries required for compiling the
+                                                kernel
+                                            </b>
+                                        </p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">sudo apt update</span><br></pre>
+                                                        <pre><span class="line">sudo apt upgrade</span><br></pre>
+                                                        <pre><span class="line">sudo apt-get install flex</span><br></pre>
+                                                        <pre><span class="line">sudo apt-get install bison</span><br></pre>
+                                                        <pre><span class="line">sudo apt install build-essential</span><br></pre>
+                                                        <pre><span class="line">sudo apt install libelf-dev libssl-dev</span><br></pre>
+                                                        <pre><span class="line">sudo apt-get install libncurses5-dev gcc make git exuberant-ctags bc libssl-dev</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 3: Copy current kernel config file, then set it as default
+                                                configuration</b>
+                                        </p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">cp /boot/config-`uname -r`* .config</span><br></pre>
+                                                        <pre><span class="line">make defconfig</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 4: Modify the config file</b></p>
+                                        <p>
+                                        
+                                        Find <span class="white_bg">CONFIG_LOCALVERSION</span> change value to <span class="white_bg">-os-312551002</span>
+                                        </p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">vim .config</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 5: Compile the kernel (wait 20~50 mins)</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">make -j4</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 6: Install the kernel modules</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">sudo make modules_install install</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 7: Update GRUB, the bootloader</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">sudo update-grub2</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 8: Reboot the system</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">sudo reboot</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p>Press <b>Esc</b> button when system boot > Advanced options for Ubuntu > choose
+                                            <span class="white_bg">Linux 5.19.12-os-312551002</span> to start
+                                        </p>
+                                        <p><b>Step 9: Check the running kernel version</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">uname -a</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>The screenshot of changed kernel suffix</b></p>
+                                        <div>
+                                            <img alt="張永義 競賽圖片" src="./images/OS_1/OS_1.png" />
+                                        </div>
+
+
+
+
+                                        <h2 id="Part 2"><a href="#Part 2" class="headerlink" title="Part 2"></a>Part 2: Adding
+                                            custom system calls
+                                        </h2>
+
+                                        <h3 id="sys_hello"><a href="#sys_hello" class="headerlink" title="sys_hello" ></a><span class="white_bg">sys_hello</span></h3>
+                                        <p>For the implementation of the sys_hello system calls, I <span  style="color: red;">modified 4 kernel
+                                            source files and added 1 new C code</span> to verify if the system calls work
+                                            correctly. The modified and added files are:
+                                        </p>
+
+                                        <span>
+                                            <li class="post-title4">linux-5.19.12/kernel/<span  style="color: red;">sys.c</span></li>
+                                            <li class="post-title4">
+                                                linux-5.19.12/arch/x86/include/generated/uapi/asm/<span  style="color: red;">unistd_64.h</span>
+                                            </li>
+                                            <li class="post-title4">linux-5.19.12/arch/x86/entry/syscalls/<span  style="color: red;">syscall_64.tbl</span>
+                                            </li>
+                                            <li class="post-title4">linux-5.19.12/include/linux/<span  style="color: red;">syscalls.h</span></li>
+                                            <li class="post-title4"><span  style="color: red;">sys_hello.c</span></li>
+                                        </span>
+                                        <p><b>Step 1: In the sys.c file, add the following code to defines a new system
+                                                call named "hello".</b>
+                                        </p>
+                                        <figure class="highlight plain">
+                                            <div class="table-container">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="gutter">
+                                                                <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+                                                            </td>
+                                                            <td class="code">
+                                                                <pre><span class="line">SYSCALL_DEFINE0(hello){</span><br><span class="line">	printk(KERN_INFO "Hello, world! \n");</span><br><span class="line">	printk(KERN_INFO "312551002 \n");</span><br><span class="line">	return 0;</span><br><span class="line">}</span><br></pre>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </figure>
+                                        <p><b>Step 2: In the unistd_64.h file, add the following code to defines the
+                                                system call number for "hello".</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">#define __NR_hello 548</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 3: In the syscall_64.tbl file, add the following entry to map system
+                                                call number to its corresponding function.</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">548	common	hello	sys_hello</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+
+                                        <p><b>Step 4: In the syscalls.h file, add the following code to add the new
+                                                system call in the header file.</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">asmlinkage long sys_hello(void);</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 5: Create new C code file named sys_hello.c and add the following
+                                                code:</b></p>
+                                        <figure class="highlight plain">
+                                            <div class="table-container">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="gutter">
+                                                                <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+                                                            </td>
+                                                            <td class="code">
+                                                                <pre><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;sys/syscall.h&gt;</span><br><span class="line">#define __NR_hello 548</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[]) {</span><br><span class="line">    int ret = syscall(__NR_hello);</span><br><span class="line">    assert(ret == 0);</span><br><span class="line">    return 0;</span><br><span class="line">}</span></pre>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </figure>
+                                        <p><b>Step 6: Rebuild the kernel to compile the modified kernel source code.</b>
+                                        </p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">make</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 7: Reinstall the kernel</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">sudo make modules_install install</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 8: Reboot the kernel</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">sudo reboot</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 9: Compile the sys_hello.c file to test if the system call operates
+                                                correctly.</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">gcc sys_hello.c -o sys_hello</span><br></pre>
+                                                        <pre><span class="line">./sys_hello</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 10: Display the output messages produced by the sys_hello system
+                                                call.</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">dmesg | tail</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>The screenshot of the results of executing sys_hello system call:</b></p>
+                                        <div>
+                                            <img alt="張永義 競賽圖片" src="./images/OS_1/OS_2.jpg" />
+                                        </div>
+
+                                        <h3 id="sys_revstr"><a href="#sys_revstr" class="headerlink" title="sys_revstr" ></a><span class="white_bg">sys_revstr</span></h3>
+
+                                    </h2>
+                                    <p>For the implementation of the sys_revstr system calls, I <span  style="color: red;">modified 4 kernel
+                                        source files and added 1 new C code</span> to verify if the system calls work
+                                        correctly. The modified and added files are:
+                                    </p>
+
+                                    <span>
+                                        <li class="post-title4">linux-5.19.12/kernel/<span  style="color: red;">sys.c</span></li>
+                                        <li class="post-title4">
+                                            linux-5.19.12/arch/x86/include/generated/uapi/asm/<span  style="color: red;">unistd_64.h</span>
+                                        </li>
+                                        <li class="post-title4">linux-5.19.12/arch/x86/entry/syscalls/<span  style="color: red;">syscall_64.tbl</span>
+                                        </li>
+                                        <li class="post-title4">linux-5.19.12/include/linux/<span  style="color: red;">syscalls.h</span></li>
+                                            <li class="post-title4"><span  style="color: red;">sys_revstr.c</span></li>
+                                        </span>
+                                        <p><b>Step 1: In the sys.c file, add the following code to defines a new system
+                                                call named "revstr".</b></p>
+                                        <figure class="highlight plain">
+                                            <div class="table-container">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="gutter">
+                                                                <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre>
+                                                            </td>
+                                                            <td class="code">
+                                                                <pre><span class="line">SYSCALL_DEFINE2(revstr, int, len, char __user *, usr_str) {</span><br><span class="line">    char k_str[256];</span><br><span class="line">    char k_revstr[256];</span><br><span class="line">    int start = 0;</span><br><span class="line">    int end = len - 1;</span><br><span class="line"></span><br><span class="line">    if(len &gt;= sizeof(k_str))</span><br><span class="line">        return -EINVAL;</span><br><span class="line">    if(copy_from_user(k_str, usr_str, len))</span><br><span class="line">        return -EFAULT;</span><br><span class="line"></span><br><span class="line">    k_str[len] = '\0';</span><br><span class="line">    printk(KERN_INFO "The origin string: %s", k_str);</span><br><span class="line"></span><br><span class="line">    while(start &lt; end) {</span><br><span class="line">        char temp = k_str[start];</span><br><span class="line">        k_str[start] = k_str[end];</span><br><span class="line">        k_str[end] = temp;</span><br><span class="line">        start++;</span><br><span class="line">        end--;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    strncpy(k_revstr, k_str, sizeof(k_str));</span><br><span class="line">    printk(KERN_INFO "The reversed string: %s", k_revstr);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">}</span></pre>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </figure>
+                                        <p><b>Step 2: In the unistd_64.h file, add the following code to defines the
+                                                system call number for "revstr".</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">#define __NR_revstr 549</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 3: In the syscall_64.tbl file, add the following entry to map system
+                                                call number to its corresponding function.</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">549	common	revstr	sys_revstr</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 4: In the syscalls.h file, add the following code to add the new
+                                                system call in the header file.</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">asmlinkage long sys_revstr(int len, char __user *usr_str);</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 5: Create new C code file named sys_revstr.c and add the following
+                                                code:</b></p>
+                                                <figure class="highlight plain">
+                                                    <div class="table-container">
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="gutter">
+                                                                        <pre>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13</pre>
+                                                                    </td>
+                                                                    <td class="code">
+<pre>
+#include &lt;assert.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/syscall.h&gt;
+#define __NR_revstr 549
+
+int main(int argc, char *argv[]) {
+    int ret1 = syscall(__NR_revstr, 5, "hello");
+    assert(ret1 == 0);
+
+    int ret2 = syscall(__NR_revstr, 11, "5Y573M C411");
+    assert(ret2 == 0);
+    return 0;
+}
+</pre>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </figure>
+                                        <p><b>Step 6: Rebuild the kernel to compile the modified kernel source code.</b>
+                                        </p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">make</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 7: Reinstall the kernel</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">sudo make modules_install install</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 8: Reboot the kernel</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">sudo reboot</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 9: Compile the sys_hello.c file to test if the system call operates
+                                                correctly.</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">gcc sys_revstr.c -o sys_revstr</span><br></pre>
+                                                        <pre><span class="line">./sys_revstr</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>Step 10: Display the output messages produced by the sys_ revstr system
+                                                call.</b></p>
+                                        <figure class="highlight plain">
+                                            <table>
+                                                <tr>
+                                                    <td class="code">
+                                                        <pre><span class="line">dmesg | tail</span><br></pre>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </figure>
+                                        <p><b>The screenshot of the results of executing sys_hello system call:</b></p>
+                                        <div>
+                                            <img alt="張永義 競賽圖片" src="./images/OS_1/OS_3.png" />
+                                        </div>
+
+
+
+                                        <div class="post-body">
+                                            <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference
+                                            </h2>
+                                            
+                                            <p><a href="https://hackmd.io/@Cycatz/HJekaAHzo" target="_blank">https://hackmd.io/@Cycatz/HJekaAHzo</a></p>
+                                            <p><a href="https://github.com/Benedict-CS/Operating-System-NYCU-2023/tree/main/HW1" target="_blank">https://github.com/Benedict-CS/Operating-System-NYCU-2023/tree/main/HW1</a></p>
+                                            <p><a href="https://kernelnewbies.org/KernelBuild" target="_blank">https://kernelnewbies.org/KernelBuild</a></p>
+                                            <p><a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation" target="_blank">https://wiki.archlinux.org/title/Kernel/Traditional_compilation</a></p>
+                                            <p><a href="https://www.kernel.org/doc/html/latest/process/adding-syscalls.html" target="_blank">https://www.kernel.org/doc/html/latest/process/adding-syscalls.html</a></p>
+
+
+                                        <footer class="post-footer">
+                                            <div class="post-tags">
+                                                <a href="../../tags/OS/index.html" rel="tag">#
+                                                    OS</a>
+                                                <a href="../../tags/University/index.html" rel="tag">#
+                                                    University</a>
+                                            </div>
+                                            <span class="post-nav-divider"></span>
+
+                                            <div class="post-nav">
+                                                <div class="post-nav-next post-nav-item">
+                                                    <a href="../2023/university.html" rel="next">
+                                                        <i class="fa fa-chevron-left"></i>
+                                                        大學畢業不是終點而是起點
+                                                    </a>
+                                                </div>
+
+                                                <div class="post-nav-prev post-nav-item">
+                                                    <a href="../2024/linux_scheduling_policies.html" rel="prev">
+    
+                                                        Apply different scheduling policies
+                                                       <i class="fa fa-chevron-right"></i>
+                                                       
+                                                    </a>
+                                                 </div>
+                                            </div>
+
+                                           
+                                        </footer>
+                                    </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-toggle">
+                    <div class="sidebar-toggle-line-wrap">
+                        <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+                        <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+                    </div>
+                </div>
+                <aside id="sidebar" class="sidebar">
+                    <div class="sidebar-inner">
+                        <ul class="sidebar-nav motion-element">
+                            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">目錄</li>
+                        </ul>
+                        <div class="post-site-overview-wrap motion-element sidebar-panel sidebar-panel-active">
+                            <div class="post-toc">
+                                <div>
+                                    <ol class="nav">
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Outline">
+                                                <span class="nav-number">1.</span>
+                                                <span class="nav-text">Outline</span></a>
+                                        </li>
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Part 1">
+                                                <span class="nav-number">2.</span>
+                                                <span class="nav-text">Part 1: Compiling Linux Kernel</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Part 2">
+                                                <span class="nav-number">3.</span>
+                                                <span class="nav-text">Part 2: Adding custom system calls</span>
+                                            </a>
+
+                                            <ul class="nav-item nav-level-1">
+                                                <li class="nav-item nav-level-1">
+                                                    <a class="nav-link" href="#sys_hello">
+                                                        <span class="nav-text">sys_hello</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item nav-level-1">
+                                                    <a class="nav-link" href="#sys_revstr">
+                                                        <span class="nav-text">sys_revstr</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item nav-level-1">
+                                            <a class="nav-link" href="#Reference">
+                                                <span class="nav-number">4.</span>
+                                                <span class="nav-text">Reference</span>
+                                            </a>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+        <!-- Footer的一些内容 -->
+        <footer id="footer" class="footer">
+            <div class="footer-inner">
+                <div class="copyright">&copy;
+                    <span itemprop="copyrightYear">2024</span>
+                    <span class="author" itemprop="copyrightHolder">Benedict</span>
+                </div>
+                <div class="busuanzi-count">
+                    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user"></i>
+                    </span>
+                    <span class="site-uv" title="Total Visitors">
+                        <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+                    </span>
+                    <span class="post-meta-divider">|</span>
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    <span class="site-pv" title="Total Views">
+                        <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+                    </span>
+                </div>
+            </div>
+        </footer>
+        <!-- 回到top的箭頭 -->
+        <div class="back-to-top">
+            <i class="fa fa-arrow-up"></i>
+        </div>
+    </div>
+    <script>"[object Function]" !== Object.prototype.toString.call(window.Promise) && (window.Promise = null)</script>
+    <script src="../../lib/jquery/index.js"></script>
+    <script src="../../lib/velocity/velocity.min.js"></script>
+    <script src="../../lib/velocity/velocity.ui.min.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/motion.js"></script>
+    <script src="../../js/baidu.js"></script>
+    <script src="../../js/schemes/muse.js"></script>
+    <script src="../../js/scrollspy.js"> </script>
+    <script src="../../js/next-boot.js"></script>
+</body>
+
+</html>
