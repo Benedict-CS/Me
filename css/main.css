@@ -102,6 +102,14 @@ border-radius: 3px; /* Set the border radius to create rounded corners */
         padding: 10px;
      }
 
+     .item7 {
+        width: 19%;
+        margin: 2px;
+        justify-content: center;
+        align-items: center;
+        padding: 2px;
+     }
+
      .item2 {
         width: 45%;
         height: 40%;
